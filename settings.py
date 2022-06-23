@@ -47,10 +47,13 @@ def writeCommand(button, command, path, color):
         json.dump(commands, file)
 
     refresh_buttons()
+
 def readCommands():
+    global COMMANDS
     commands = {}
     with open("commands.json", 'r') as file:
         commands = json.load(file)
+    COMMANDS = commands
     return commands
 
 def deleteCommand(button):
@@ -69,11 +72,12 @@ def deleteCommand(button):
 def buttonClickEvent(button):
     global CURRENT_PAGE
     if type(button) == type([]):
-
+        readCommands()
         button_is_used = button in getUsedButtonsThisPage()
         path = ""
         command = ""
         if button_is_used:
+            print(COMMANDS)
             command = COMMANDS[f"Page {CURRENT_PAGE}"][f"{button[0]},{button[1]}"]["command"]
             path = COMMANDS[f"Page {CURRENT_PAGE}"][f"{button[0]},{button[1]}"]["path"]
             if "/" in path and not path.startswith("http://"):
@@ -136,10 +140,12 @@ def buttonClickEvent(button):
             messagebox.showinfo("Special Button B", "This button is used to lower the volume of the sounds")
         if button == 'C':
             messagebox.showinfo("Special Button C", "This button is used to stop all sounds from playing")
+        if button == 'F':
+            messagebox.showinfo("Special Button F", "This button is used to Refresh the Launchpad Buttons")
         if button == 'G':
-            messagebox.showinfo("Special Button G", "This button is used to exit the Controll Pad")
+            messagebox.showinfo("Special Button G", "This button is used to open these settings")
         if button == 'H':
-            messagebox.showinfo("Special Button H", "This button is used to open these settings")
+            messagebox.showinfo("Special Button H", "This button is used to exit the Controll Pad")
         print("Special command")
 
 def getButtonColor(button):

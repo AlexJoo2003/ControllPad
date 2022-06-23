@@ -55,8 +55,9 @@ def draw_buttons():
     lp.LedCtrlXY(8,1,0,1)
     lp.LedCtrlXY(8,2,0,1)
     lp.LedCtrlXY(8,3,0,1)
-    lp.LedCtrlXY(8,7,1,0)
-    lp.LedCtrlXY(8,8,0,1)
+    lp.LedCtrlXY(8,6,0,1)
+    lp.LedCtrlXY(8,7,0,1)
+    lp.LedCtrlXY(8,8,1,0)
 
 def change_current_page(new_page):
     commands = {}
@@ -75,13 +76,14 @@ def button_press(button):
         path = COMMANDS[f"Page {CURRENT_PAGE}"][f"{button[0]},{button[1]}"]["path"]
         color = COMMANDS[f"Page {CURRENT_PAGE}"][f"{button[0]},{button[1]}"]["color"]
         if command == "play":
-            global CURRENT_BUTTON_SOUND
+            play_sound(path)
 
-            if CURRENT_BUTTON_SOUND == button:
-                toggle_sound()
-            else:
-                CURRENT_BUTTON_SOUND = button
-                play_sound(path)
+            # global CURRENT_BUTTON_SOUND
+            # if CURRENT_BUTTON_SOUND == button:
+            #     toggle_sound()
+            # else:
+            #     CURRENT_BUTTON_SOUND = button
+            #     play_sound(path)
         elif command == "start":
             start_app(path)
         elif command == "search":
@@ -89,27 +91,27 @@ def button_press(button):
 
 def play_sound(path):
     stop_sound()
-    global SOUND_IS_PAUSED
-    SOUND_IS_PAUSED = False
+    # global SOUND_IS_PAUSED
+    # SOUND_IS_PAUSED = False
     mixer.music.load(path)
     mixer.music.play()
 def stop_sound():
-    global SOUND_IS_PAUSED
-    CURRENT_BUTTON_SOUND = [-1,-1]
-    SOUND_IS_PAUSED = False
+    # global SOUND_IS_PAUSED
+    # CURRENT_BUTTON_SOUND = [-1,-1]
+    # SOUND_IS_PAUSED = False
     mixer.music.stop()
     draw_buttons()
-def toggle_sound():
-    global SOUND_IS_PAUSED
-    global BLINKING
-    if SOUND_IS_PAUSED:
-        BLINKING = True
-        mixer.music.unpause()
-    else:
-        BLINKING = False
-        mixer.music.pause()
-        draw_buttons()
-    SOUND_IS_PAUSED = not SOUND_IS_PAUSED
+# def toggle_sound():
+#     global SOUND_IS_PAUSED
+#     global BLINKING
+#     if SOUND_IS_PAUSED:
+#         BLINKING = True
+#         mixer.music.unpause()
+#     else:
+#         BLINKING = False
+#         mixer.music.pause()
+#         draw_buttons()
+#     SOUND_IS_PAUSED = not SOUND_IS_PAUSED
 
 def adjust_volume(higher, amount):
     read_commands()
@@ -129,9 +131,6 @@ def adjust_volume(higher, amount):
     with open("commands.json", 'w') as file:
         json.dump(COMMANDS, file)
 
-
-
-
 def start_app(path):
     os.startfile(path)
 
@@ -141,19 +140,23 @@ def search_link(link):
 
 def stray_icon_clicked(icon, item):
     if str(item) == "Open Settings":
-        start_app("./settings.exe")
+        start_app("settings.exe")
+    elif str(item) == "Refresh":
+        read_commands()
+        draw_buttons()
     elif str(item) == "Exit":
         icon.stop()
         global STOP
         STOP = True
 
-def stray_icon():
-    stray_image = PIL.Image.open("images/GreenCircleBtn.png")
-    icon = pystray.Icon("Controll Pad", stray_image, menu=pystray.Menu(
-        pystray.MenuItem("Open Settings", stray_icon_clicked),
-        pystray.MenuItem("Exit", stray_icon_clicked)
+stray_image = PIL.Image.open("images/GreenCircleBtn.png")
+icon = pystray.Icon("Controll Pad", stray_image, menu=pystray.Menu(
+    pystray.MenuItem("Open Settings", stray_icon_clicked),
+    pystray.MenuItem("Refresh", stray_icon_clicked),
+    pystray.MenuItem("Exit", stray_icon_clicked)
+))
 
-    ))
+def stray_icon():
     icon.run()
     
 
@@ -195,12 +198,13 @@ while True:
                 elif button == 5:
                     pass
                 elif button == 6:
-                    pass
+                    read_commands()
+                    draw_buttons()
                 elif button == 7:
-                    break
+                    start_app("settings.exe")
                 elif button == 8:
-                    start_app("./settings.exe")
-                    pass
+                    icon.stop()
+                    break
                 continue
             buts[1] -= 1
             button_press(buts)
