@@ -47,17 +47,17 @@ def draw_buttons():
     lp.LedCtrlXY(CURRENT_PAGE-1,0, 0, 1)
     for key in commands:
         if commands[key]["color"] == "green":
-            lp.LedCtrlXY(int(key.split(",")[0]),int(key.split(",")[1])+1, 0, 1)
+            lp.LedCtrlXY(int(key.split(",")[0]),int(key.split(",")[1])+1, 0, 3)
         elif commands[key]["color"] == "yellow":
-            lp.LedCtrlXY(int(key.split(",")[0]),int(key.split(",")[1])+1, 1, 1)
+            lp.LedCtrlXY(int(key.split(",")[0]),int(key.split(",")[1])+1, 3, 3)
         elif commands[key]["color"] == "red":
-            lp.LedCtrlXY(int(key.split(",")[0]),int(key.split(",")[1])+1, 1, 0)
-    lp.LedCtrlXY(8,1,0,1)
-    lp.LedCtrlXY(8,2,0,1)
-    lp.LedCtrlXY(8,3,0,1)
-    lp.LedCtrlXY(8,6,0,1)
-    lp.LedCtrlXY(8,7,0,1)
-    lp.LedCtrlXY(8,8,1,0)
+            lp.LedCtrlXY(int(key.split(",")[0]),int(key.split(",")[1])+1, 3, 0)
+    lp.LedCtrlXY(8,1,0,3)
+    lp.LedCtrlXY(8,2,0,3)
+    lp.LedCtrlXY(8,3,0,3)
+    lp.LedCtrlXY(8,6,0,3)
+    lp.LedCtrlXY(8,7,0,3)
+    lp.LedCtrlXY(8,8,3,0)
 
 def change_current_page(new_page):
     commands = {}
