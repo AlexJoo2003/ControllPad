@@ -11,3 +11,11 @@ pygame - to play sounds
 tkinter - to create the GUI
 pystray - to be able to use the system tray
 pillow (PIL) - to make the icon in the system tray have an image
+
+# INSTALATION
+
+pip install -U pyinstaller
+pyinstaller program.spec
+
+in the dist folder you will find the output folder, put the images folder and the commands.json in there
+You can put the folder wherever you want now.
