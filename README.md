@@ -27,7 +27,9 @@ You could also compile it on your machine following these steps:
 The folder in `dist` is going to contain all the necessary files. To run, double click the `controllPad.exe`.
 
 # Usage
-Once running, the `controllPad.exe` a green icon should appear in your system tray. You can right-click it to open settings, or just simply open `settings.exe`. In the settings, you will be presented with a grid of buttons following the layout of an Ableton Live's Launchpad Mini product. The top row are the pages, and the side row are special buttons, neither of them are configurable. The grid in the middle has square buttons, which upon click give the user 4 options: assign the button to play music, start an application, search the web or delete function. After properly following the instructions, the button will be assigned a function and will light up green.
+Once running, the `controllPad.exe` a green icon should appear in your system tray. You can right-click it to open settings, or just simply open `settings.exe`. In the settings, you will be presented with a grid of buttons following the layout of an Ableton Live's Launchpad Mini product. The top row are the pages, and the side row are special buttons, neither of them are configurable. The grid in the middle has square buttons, which upon click give the user 4 options: assign the button to play music, start an application, search the web or delete function. After properly following the instructions, the button will be assigned a function and will light up green/yellow/red.
+
+![Preview](https://github.com/AlexJoo2003/ControllPad/blob/main/images/preview.png "Preview of the settings.exe")
 
 In order to actually call the function, the Launchpad Mini needs to be connected to the computer, prior to running the application. Every time a new function has been assigned, the launchpad buttons can be refreshed by pressing the F button on the side, or by right-clicking the icon in the system tray and selecting "Refresh". Pressing any green buttons in the main grid will do the assigned function.
 
